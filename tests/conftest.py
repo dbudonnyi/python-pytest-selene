@@ -2,7 +2,7 @@ import pytest
 from selene.support.shared import browser
 
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def browser_management(request):
     """
     Here, before yield,
@@ -39,7 +39,7 @@ def browser_management(request):
 
     browser.config.timeout = 3
     browser.config.browser_name = 'chrome'
-    browser.config.base_url = 'https://www.saucedemo.com/'
+    browser.config.base_url = 'https://www.saucedemo.com'
 
     yield
 
@@ -51,6 +51,10 @@ def browser_management(request):
 
     browser.quit()
 
-# @pytest.fixture(scope='class')
-# def login_cookie():
-#
+
+@pytest.fixture(scope='function', autouse=True)
+def test_wrapper():
+    yield
+
+    browser.clear_session_storage()
+    browser.driver.delete_all_cookies()
