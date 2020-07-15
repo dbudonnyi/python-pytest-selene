@@ -1,7 +1,7 @@
 from selene.support.shared import browser
-import web.pages.login_page
-import web.pages.inventory_page
-import web.pages.cart_page
+from web.pages.login_page import LoginPage
+from web.pages.inventory_page import InventoryPage
+from web.pages.cart_page import CartPage
 
 
 class App(object):
@@ -11,12 +11,12 @@ class App(object):
 
     @property
     def LoginPage(self):
-        return web.pages.login_page.LoginPage()
+        return LoginPage()
 
     @property
     def InventoryPage(self):
-        return web.pages.inventory_page.InventoryPage()
+        return InventoryPage()
 
     @property
     def CartPage(self):
-        return web.pages.cart_page.CartPage()
+        return CartPage()
