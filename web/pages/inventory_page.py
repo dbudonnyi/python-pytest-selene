@@ -22,7 +22,7 @@ class InventoryPage(Header):
         return self
 
     def should_be_opened(self):
-        s(by.id('inventory_container')).should(be.existing)
+        s(by.id('inventory_container')).should(be.visible)
         return self
 
     def get_all_products(self) -> Collection:
