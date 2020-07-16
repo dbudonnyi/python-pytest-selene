@@ -4,10 +4,6 @@ from selene.support.shared.jquery_style import s, ss
 
 
 class LoginPage:
-    def __init__(self):
-        self.__username = 'standard_user'
-        self.__password = 'secret_sauce'
-
     def login(self, username, password):
         browser.open('/')
         s(by.id('user-name')).should(be.blank).type(username)
