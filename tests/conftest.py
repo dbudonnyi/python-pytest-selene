@@ -1,5 +1,8 @@
 import pytest
+import allure
 from selene.support.shared import browser
+from _pytest.nodes import Item
+from _pytest.runner import CallInfo
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -40,6 +43,7 @@ def browser_management(request):
     browser.config.timeout = 3
     browser.config.browser_name = 'chrome'
     browser.config.base_url = 'https://www.saucedemo.com'
+    browser.driver.maximize_window()
 
     yield
 
@@ -58,3 +62,42 @@ def test_wrapper():
 
     browser.clear_session_storage()
     browser.driver.delete_all_cookies()
+
+prev_test_screenshot = None
+prev_test_page_source = None
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_setup(item):
+    yield
+
+    global prev_test_screenshot
+    prev_test_screenshot = browser.config.last_screenshot
+    global prev_test_page_source
+    prev_test_page_source = browser.config.last_page_source
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item: Item, call: CallInfo):
+    """
+    Attach snapshots on test failure
+    """
+
+    # All code prior to yield statement would be ran prior
+    # to any other of the same fixtures defined
+
+    outcome = yield # Run all other pytest_runtest_makereport non wrapped hooks
+    result = outcome.get_result()
+
+    if result.when == "call" and result.failed:
+        last_screenshot = browser.config.last_screenshot
+        if last_screenshot and not last_screenshot == prev_test_screenshot:
+            allure.attach.file(source=last_screenshot,
+                               name='screenshot',
+                               attachment_type=allure.attachment_type.PNG)
+
+        last_page_source = browser.config.last_page_source
+        if last_page_source and not last_page_source == prev_test_page_source:
+            allure.attach.file(source=last_page_source,
+                               name='page source',
+                               attachment_type=allure.attachment_type.HTML)

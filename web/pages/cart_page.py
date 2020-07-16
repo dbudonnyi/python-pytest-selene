@@ -11,7 +11,7 @@ class CartPage(Header):
         return self
 
     def should_be_opened(self):
-        s(by.id('cart_contents_container')).should(be.existing)
+        s(by.id('cart_contents_container')).should(be.visible)
         return self
 
     def get_all_products_in_cart(self) -> Collection:

@@ -14,3 +14,31 @@ class Header:
         actual_number = 0 if len(elements) == 0 else int(elements.first.get(query.text))
         assert expected_number == actual_number
         return self
+
+    def open_menu(self):
+        s("div.bm-burger-button > button").click()
+        return self
+
+    def menu_should_be_opened(self):
+        s("div.bm-menu > nav.bm-item-list").should(be.visible)
+        return self
+
+    def click_all_items(self):
+        self.menu_should_be_opened()
+        s("div.bm-menu > nav.bm-item-list > #inventory_sidebar_link").click()
+        return self
+
+    def click_about(self):
+        self.menu_should_be_opened()
+        s("div.bm-menu > nav.bm-item-list > #about_sidebar_link").click()
+        return self
+
+    def click_logout(self):
+        self.menu_should_be_opened()
+        s("div.bm-menu > nav.bm-item-list > #logout_sidebar_link").click()
+        return self
+
+    def click_reset_app_state(self):
+        self.menu_should_be_opened()
+        s("div.bm-menu > nav.bm-item-list > #reset_sidebar_link").click()
+        return self

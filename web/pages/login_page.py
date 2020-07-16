@@ -4,8 +4,16 @@ from selene.support.shared.jquery_style import s, ss
 
 
 class LoginPage:
-    def login(self, username, password):
+    def open(self):
         browser.open('/')
+        return self
+
+    def should_be_opened(self):
+        s(by.id('login_button_container')).should(be.visible)
+        return self
+
+    def login(self, username, password):
+        self.open().should_be_opened()
         s(by.id('user-name')).should(be.blank).type(username)
         s(by.id('password')).should(be.blank).type(password)
         s(by.id('login-button')).should(be.clickable).click()

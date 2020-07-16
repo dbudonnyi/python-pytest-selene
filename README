@@ -1,0 +1,22 @@
+This is the project with overview for pytest automation framework.
+Selene was chosen as main framework for UI testing.
+Reports are generating with Allure.
+Testing UI is performed for - https://www.saucedemo.com/
+
+Requirements:
+ - python 3
+ - modules specified in requirements.txt. Install all modules with command: pip3 install requirements.txt
+
+Command to run tests:
+pytest tests --alluredir=reports
+
+Command to run tests in parallel:
+pytest tests -n 4 --alluredir=reports
+
+To have a history in Allure report, copy 'history' folder from 'allure-report' folder to 'history' folder in 'reports'
+folder before running tests. Command to copy folder (for Windows):
+Xcopy allure-report\history reports\history /E /H /C /I
+
+Commands to generate report:
+allure generate --clean reports
+allure open allure-report
