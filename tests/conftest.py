@@ -5,7 +5,7 @@ from _pytest.nodes import Item
 from _pytest.runner import CallInfo
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='class', autouse=True)
 def browser_management(request):
     """
     Here, before yield,
