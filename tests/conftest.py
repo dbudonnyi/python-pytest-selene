@@ -43,7 +43,6 @@ def browser_management(request):
     browser.config.timeout = 3
     browser.config.browser_name = 'chrome'
     browser.config.base_url = 'https://www.saucedemo.com'
-    browser.driver.maximize_window()
 
     yield
 
