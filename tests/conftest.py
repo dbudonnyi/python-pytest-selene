@@ -3,9 +3,12 @@ import allure
 from selene.support.shared import browser
 from _pytest.nodes import Item
 from _pytest.runner import CallInfo
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
 
 
-@pytest.fixture(scope='class', autouse=True)
+@pytest.fixture(scope='session', autouse=True)
 def browser_management(request):
     """
     Here, before yield,
@@ -40,9 +43,14 @@ def browser_management(request):
     #     return error
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
-    browser.config.timeout = 3
-    browser.config.browser_name = 'chrome'
+    options = Options()
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-extensions")
+
+    browser.config.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
     browser.config.base_url = 'https://www.saucedemo.com'
+    browser.driver.maximize_window()
 
     yield
 
