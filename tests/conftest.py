@@ -3,6 +3,9 @@ import allure
 from selene.support.shared import browser
 from _pytest.nodes import Item
 from _pytest.runner import CallInfo
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 @pytest.fixture(scope='session', autouse=True)
@@ -40,8 +43,16 @@ def browser_management(request):
     #     return error
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
-    browser.config.timeout = 3
-    browser.config.browser_name = 'chrome'
+    capabilities = {
+        "browserName": "chrome",
+        "version": "84.0",
+        "enableVNC": True,
+        "enableVideo": False
+    }
+
+    browser.config.driver = webdriver.Remote(
+        command_executor="http://localhost:4444/wd/hub",
+        desired_capabilities=capabilities)
     browser.config.base_url = 'https://www.saucedemo.com'
     browser.driver.maximize_window()
 
