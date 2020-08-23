@@ -43,12 +43,16 @@ def browser_management(request):
     #     return error
     # browser.config.hook_wait_failure = attach_snapshots_on_failure
 
-    options = Options()
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-    options.add_argument("--disable-extensions")
+    capabilities = {
+        "browserName": "chrome",
+        "version": "84.0",
+        "enableVNC": True,
+        "enableVideo": False
+    }
 
-    browser.config.driver = webdriver.Chrome(GeckoDriverManager().install(), options=options)
+    browser.config.driver = webdriver.Remote(
+        command_executor="http://localhost:4444/wd/hub",
+        desired_capabilities=capabilities)
     browser.config.base_url = 'https://www.saucedemo.com'
     browser.driver.maximize_window()
 
