@@ -40,8 +40,8 @@ jobs:
         pytest -n 4 --alluredir=reports --cache-clear
     - name: Generate Allure report
       run: |
-        allure generate --clean tests\reports
+        allure generate --clean reports
     - uses: actions/upload-artifact@v2
       with:
-        name: Upload Allure report to artifacts
+        name: allure-report
         path: allure-report/
