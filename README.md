@@ -7,8 +7,8 @@ Testing UI is performed for [Saucedemo](https://www.saucedemo.com/)
 ## Description
 Automation Tests workflow are executing on each pull request or push into *master* branch.
 Tests are running with *pytest* in 4 parallel streams with *Selenoid*.
-Results of each trigger of workflow can be found by the link - https://github.com/dbudonnyi/python-pytest-selene-allure/actions
-Configuration file of workflow - https://github.com/dbudonnyi/python-pytest-selene-allure/blob/master/.github/workflows/python-app.yml
+Results of each trigger of workflow can be found by the link - [https://github.com/dbudonnyi/python-pytest-selene-allure/](https://github.com/dbudonnyi/python-pytest-selene-allure/)
+Configuration file of workflow - [https://github.com/dbudonnyi/python-pytest-selene-allure/blob/master/.github/workflows/python-app.yml](https://github.com/dbudonnyi/python-pytest-selene-allure/blob/master/.github/workflows/python-app.yml)
 
 ## Getting Started (running tests on local machine)
 
@@ -16,9 +16,9 @@ Configuration file of workflow - https://github.com/dbudonnyi/python-pytest-sele
 Requirements to run tests on local machine:
 * python 3
 * modules specified in requirements.txt. Install all modules with command:
-  ```
-  pip install requirements.txt
-  ```
+ ```
+ pip install requirements.txt
+ ```
 * Allure
 * Selenoid
 
