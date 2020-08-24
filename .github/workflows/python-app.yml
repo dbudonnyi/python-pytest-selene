@@ -33,9 +33,7 @@ jobs:
         curl -s https://aerokube.com/cm/bash | bash && ./cm selenoid start --vnc
     - name: Install Allure
       run: |
-        sudo apt-add-repository ppa:qameta/allure
-        sudo apt-get update
-        sudo apt-get install allure
+        npm install -g allure-commandline --save-dev
     - name: Run tests with pytest
       run: |
         export PYTHONPATH=src
@@ -46,4 +44,4 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: Upload Allure report to artifacts
-        path: allure-report/ # or path/to/artifact
+        path: allure-report/
