@@ -33,7 +33,7 @@ jobs:
         curl -s https://aerokube.com/cm/bash | bash && ./cm selenoid start --vnc
     - name: Install Allure
       run: |
-        npm install -g allure-commandline --save-dev
+        sudo npm install -g allure-commandline --save-dev
     - name: Run tests with pytest
       run: |
         export PYTHONPATH=src
