@@ -37,11 +37,10 @@ jobs:
     - name: Run tests with pytest
       run: |
         export PYTHONPATH=src
-        pytest -n 4 --alluredir=reports --cache-clear
+        pytest tests -n 4 --alluredir=reports --cache-clear
     - name: Generate Allure report
       run: |
-        echo $PWD
-        allure generate --clean reports
+        allure generate --clean tests/reports
     - uses: actions/upload-artifact@v2
       with:
         name: allure-report
