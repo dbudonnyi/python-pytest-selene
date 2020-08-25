@@ -40,6 +40,7 @@ jobs:
         pytest -n 4 --alluredir=reports --cache-clear
     - name: Generate Allure report
       run: |
+        echo $PWD
         allure generate --clean reports
     - uses: actions/upload-artifact@v2
       with:
