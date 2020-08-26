@@ -31,7 +31,17 @@ jobs:
     - name: Install Selenoid
       run: |
         curl -s https://aerokube.com/cm/bash | bash && ./cm selenoid start --vnc
-    - name: Test with pytest
+    - name: Install Allure
+      run: |
+        sudo npm install -g allure-commandline --save-dev
+    - name: Run tests with pytest
       run: |
         export PYTHONPATH=src
-        pytest -n 4 --alluredir=reports --cache-clear
+        pytest tests -n 4 --alluredir=reports --cache-clear
+    - name: Generate Allure report
+      run: |
+        allure generate --clean tests/reports
+    - uses: actions/upload-artifact@v2
+      with:
+        name: allure-report
+        path: allure-report/
